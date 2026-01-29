@@ -619,7 +619,12 @@ require('lazy').setup({
         -- You can add other tools here that you want Mason to install
       })
 
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+      -- require('mason-tool-installer').setup { ensure_installed = ensure_installed, }
+      require('mason-tool-installer').setup {
+        ensure_installed = ensure_installed,
+        run_on_start = false, -- Stops the plugin from running the moment you open nvim (oe)
+        start_delay = 3000,   -- Gives Mason 3 seconds to "wake up" first (oe)
+      }
 
       for name, server in pairs(servers) do
         server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})

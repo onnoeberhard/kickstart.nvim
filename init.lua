@@ -187,6 +187,8 @@ vim.diagnostic.config {
   jump = { float = true },
 }
 
+-- asdf()
+
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
@@ -481,6 +483,7 @@ require('lazy').setup({
       -- Mason must be loaded before its dependents so we need to set it up here.
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
       { 'mason-org/mason.nvim', opts = {} },
+      { 'mason-org/mason-lspconfig.nvim', opts = {} },
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
@@ -620,11 +623,7 @@ require('lazy').setup({
       })
 
       -- require('mason-tool-installer').setup { ensure_installed = ensure_installed, }
-      require('mason-tool-installer').setup {
-        ensure_installed = ensure_installed,
-        run_on_start = false, -- Stops the plugin from running the moment you open nvim (oe)
-        start_delay = 3000,   -- Gives Mason 3 seconds to "wake up" first (oe)
-      }
+      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       for name, server in pairs(servers) do
         server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
